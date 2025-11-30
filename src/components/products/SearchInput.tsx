@@ -24,13 +24,13 @@ export function SearchInput() {
   }, [search, router, searchParams]);
 
   return (
-    <div className="w-full max-w-sm mb-8">
+    <div className='w-full max-w-sm mb-8'>
       <Input
-        type="search"
-        placeholder="Search products..."
+        type='search'
+        placeholder='Search by name or category...'
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="w-full border-orange-200 focus-visible:ring-orange-500"
+        className='w-full border-orange-200 focus-visible:ring-orange-500'
       />
     </div>
   );
