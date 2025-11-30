@@ -1,6 +1,8 @@
 import { SummaryCards } from '@/components/summary/SummaryCards';
 import { ProductList } from '@/components/products/ProductList';
 import { SearchInput } from '@/components/products/SearchInput';
+import { ProductListSkeleton } from '@/components/products/ProductListSkeleton';
+import { SummaryCardsSkeleton } from '@/components/summary/SummaryCardsSkeleton';
 import { Suspense } from 'react';
 
 interface HomeProps {
@@ -19,7 +21,9 @@ export default async function Home(props: HomeProps) {
 
       <section className='mb-16'>
         <h2 className='text-2xl font-semibold mb-6'>Summary</h2>
-        <SummaryCards />
+        <Suspense fallback={<SummaryCardsSkeleton />}>
+          <SummaryCards />
+        </Suspense>
       </section>
 
       <section>
@@ -32,7 +36,10 @@ export default async function Home(props: HomeProps) {
           >
             <SearchInput />
           </Suspense>
-          <ProductList search={search} />
+
+          <Suspense key={search} fallback={<ProductListSkeleton />}>
+            <ProductList search={search} />
+          </Suspense>
         </div>
       </section>
     </main>

@@ -17,7 +17,6 @@ export function SearchInput() {
       } else {
         params.delete('search');
       }
-      // Using scroll: false to maintain scroll position
       router.push(`/?${params.toString()}`, { scroll: false });
     }, 300);
 
