@@ -19,7 +19,7 @@ export interface DummyJsonResponse {
 }
 
 export const fetchAllProducts = async (): Promise<Product[]> => {
-  const res = await fetch('http://localhost:3000/products');
+  const res = await fetch('https://dummyjson.com/products?limit=0');
 
   if (!res.ok) {
     throw new Error('Failed to fetch products from DummyJSON');
