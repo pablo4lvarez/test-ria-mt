@@ -3,7 +3,6 @@ export interface Product {
   title: string;
   description: string;
   price: number;
-  discountPercentage: number;
   rating: number;
   stock: number;
   brand: string;
@@ -20,10 +19,8 @@ export interface DummyJsonResponse {
 }
 
 export const fetchAllProducts = async (): Promise<Product[]> => {
-  // Fetching all products (limit=0 gets all in dummyjson usually, or we pick a high number)
-  // DummyJSON default limit is 30. Let's get 100 to have some data.
-  const res = await fetch('https://dummyjson.com/products?limit=100');
-  
+  const res = await fetch('http://localhost:3000/products');
+
   if (!res.ok) {
     throw new Error('Failed to fetch products from DummyJSON');
   }
