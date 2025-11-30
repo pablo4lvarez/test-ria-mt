@@ -2,6 +2,7 @@ import { ProductsService } from '@/lib/services/products';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Star } from 'lucide-react';
+import { CategoryChart } from './CategoryChart';
 
 export async function SummaryCards() {
   const summary = await ProductsService.getSummary();
@@ -83,17 +84,7 @@ export async function SummaryCards() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className='flex flex-wrap gap-2'>
-            {summary.categories.map((category) => (
-              <Badge
-                key={category}
-                variant='outline'
-                className='border-orange-200 text-orange-700 hover:bg-orange-100'
-              >
-                {category}
-              </Badge>
-            ))}
-          </div>
+          <CategoryChart data={summary.categories} />
         </CardContent>
       </Card>
     </div>
