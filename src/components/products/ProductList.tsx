@@ -39,7 +39,7 @@ export async function ProductList({ search }: ProductListProps) {
                   ★ {product.rating}
                 </div>
               </div>
-              <CardTitle className='text-lg line-clamp-1 text-gray-900' title={product.title}>
+              <CardTitle className='text-lg text-gray-900' title={product.title}>
                 {product.title}
               </CardTitle>
             </CardHeader>

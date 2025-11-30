@@ -8,7 +8,7 @@ export async function SummaryCards() {
   const summary = await ProductsService.getSummary();
 
   return (
-    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+    <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
       <Card className='border-orange-200 bg-orange-50/50'>
         <CardHeader>
           <CardTitle className='text-orange-950'>Total Products</CardTitle>
@@ -39,17 +39,8 @@ export async function SummaryCards() {
         </CardContent>
       </Card>
 
-      <Card className='border-orange-200 bg-orange-50/50'>
-        <CardHeader>
-          <CardTitle className='text-orange-950'>Total Stock</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className='text-4xl font-bold text-orange-600'>{summary.totalStock}</p>
-        </CardContent>
-      </Card>
-
       {summary.topRatedProducts.length > 0 && (
-        <Card className='border-orange-200 bg-orange-50/50 md:col-span-2'>
+        <Card className='border-orange-200 bg-orange-50/50 md:col-span-3'>
           <CardHeader>
             <CardTitle className='text-orange-950'>Top Rated Products</CardTitle>
           </CardHeader>
@@ -60,9 +51,7 @@ export async function SummaryCards() {
                   key={product.id}
                   className='flex flex-col sm:flex-row sm:items-center justify-between border-b border-orange-200 pb-2 last:border-0 last:pb-0'
                 >
-                  <p className='font-semibold text-lg text-orange-900 truncate sm:max-w-[200px]'>
-                    {product.title}
-                  </p>
+                  <p className='font-semibold text-lg text-orange-900'>{product.title}</p>
                   <div className='flex items-center gap-2 mt-1 sm:mt-0'>
                     <Badge className='bg-orange-100 text-orange-800 hover:bg-orange-200 flex items-center gap-1'>
                       {product.rating} <Star className='h-3 w-3 fill-orange-800' />
@@ -77,7 +66,7 @@ export async function SummaryCards() {
         </Card>
       )}
 
-      <Card className='md:col-span-2 lg:col-span-3 border-orange-200 bg-orange-50/50'>
+      <Card className='md:col-span-3 border-orange-200 bg-orange-50/50'>
         <CardHeader>
           <CardTitle className='text-orange-950'>
             Categories ({summary.categories.length})
