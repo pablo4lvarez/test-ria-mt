@@ -29,3 +29,15 @@ export const fetchAllProducts = async (): Promise<Product[]> => {
   return data.products;
 };
 
+export const fetchProductById = async (id: number): Promise<Product> => {
+  const res = await fetch(`https://dummyjson.com/products/${id}`);
+
+  if (!res.ok) {
+    if (res.status === 404) {
+      throw new Error('Product not found');
+    }
+    throw new Error('Failed to fetch product from DummyJSON');
+  }
+
+  return res.json();
+};

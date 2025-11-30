@@ -1,4 +1,4 @@
-import { fetchAllProducts, Product } from '../dummyjson/client';
+import { fetchAllProducts, fetchProductById, Product } from '../dummyjson/client';
 
 export interface ProductFilters {
   search?: string;
@@ -39,6 +39,10 @@ export class ProductsService {
     }
 
     return products;
+  }
+
+  static async getProduct(id: number): Promise<Product> {
+    return fetchProductById(id);
   }
 
   static async getSummary(): Promise<ProductsSummary> {
