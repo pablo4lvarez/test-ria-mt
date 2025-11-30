@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Products',
-  description: 'Products listing',
+  title: 'Products Dashboard',
+  description: 'A dashboard for viewing product summaries, statistics, and inventory management.',
 };
 
 export default function RootLayout({
