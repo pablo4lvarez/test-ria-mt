@@ -8,10 +8,10 @@ export interface ProductFilters {
 export interface ProductsSummary {
   totalProducts: number;
   averagePrice: number;
+  averageRating: number;
   totalStock: number;
   categories: string[];
-  topRatedProduct: Product | null;
-  mostExpensiveProduct: Product | null;
+  topRatedProducts: Product[];
 }
 
 export class ProductsService {
@@ -42,10 +42,10 @@ export class ProductsService {
       return {
         totalProducts: 0,
         averagePrice: 0,
+        averageRating: 0,
         totalStock: 0,
         categories: [],
-        topRatedProduct: null,
-        mostExpensiveProduct: null,
+        topRatedProducts: [],
       };
     }
 
@@ -54,19 +54,20 @@ export class ProductsService {
     const totalPrice = products.reduce((sum, p) => sum + p.price, 0);
     const averagePrice = parseFloat((totalPrice / totalProducts).toFixed(2));
 
+    const totalRating = products.reduce((sum, p) => sum + p.rating, 0);
+    const averageRating = parseFloat((totalRating / totalProducts).toFixed(2));
+
     const categories = Array.from(new Set(products.map((p) => p.category))).sort();
 
-    const topRatedProduct = [...products].sort((a, b) => b.rating - a.rating)[0];
-    const mostExpensiveProduct = [...products].sort((a, b) => b.price - a.price)[0];
+    const topRatedProducts = [...products].sort((a, b) => b.rating - a.rating).slice(0, 3);
 
     return {
       totalProducts,
       averagePrice,
+      averageRating,
       totalStock,
       categories,
-      topRatedProduct,
-      mostExpensiveProduct,
+      topRatedProducts,
     };
   }
 }
-

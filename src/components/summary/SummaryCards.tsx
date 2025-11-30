@@ -1,6 +1,7 @@
 import { ProductsService } from '@/lib/services/products';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Star } from 'lucide-react';
 
 export async function SummaryCards() {
   const summary = await ProductsService.getSummary();
@@ -27,6 +28,18 @@ export async function SummaryCards() {
 
       <Card className='border-orange-200 bg-orange-50/50'>
         <CardHeader>
+          <CardTitle className='text-orange-950'>Average Rating</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className='text-4xl font-bold text-orange-600 flex items-center gap-2'>
+            {summary.averageRating}
+            <Star className='h-6 w-6 fill-orange-600 text-orange-600' />
+          </p>
+        </CardContent>
+      </Card>
+
+      <Card className='border-orange-200 bg-orange-50/50'>
+        <CardHeader>
           <CardTitle className='text-orange-950'>Total Stock</CardTitle>
         </CardHeader>
         <CardContent>
@@ -34,45 +47,30 @@ export async function SummaryCards() {
         </CardContent>
       </Card>
 
-      {summary.topRatedProduct && (
-        <Card className='border-orange-200 bg-orange-50/50'>
+      {summary.topRatedProducts.length > 0 && (
+        <Card className='border-orange-200 bg-orange-50/50 md:col-span-2'>
           <CardHeader>
-            <CardTitle className='text-orange-950'>Top Rated Product</CardTitle>
+            <CardTitle className='text-orange-950'>Top Rated Products</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className='flex flex-col gap-2'>
-              <p className='font-semibold text-lg text-orange-900'>
-                {summary.topRatedProduct.title}
-              </p>
-              <div className='flex items-center gap-2'>
-                <Badge className='bg-orange-100 text-orange-800 hover:bg-orange-200'>
-                  Rating: {summary.topRatedProduct.rating}
-                </Badge>
-                <span className='text-sm text-orange-700'>${summary.topRatedProduct.price}</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
-      {summary.mostExpensiveProduct && (
-        <Card className='border-orange-200 bg-orange-50/50'>
-          <CardHeader>
-            <CardTitle className='text-orange-950'>Most Expensive</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className='flex flex-col gap-2'>
-              <p className='font-semibold text-lg text-orange-900'>
-                {summary.mostExpensiveProduct.title}
-              </p>
-              <div className='flex items-center gap-2'>
-                <Badge className='bg-orange-100 text-orange-800 hover:bg-orange-200'>
-                  Price: ${summary.mostExpensiveProduct.price}
-                </Badge>
-                <span className='text-sm text-orange-700'>
-                  Current stock: {summary.mostExpensiveProduct.stock}
-                </span>
-              </div>
+            <div className='space-y-4'>
+              {summary.topRatedProducts.map((product) => (
+                <div
+                  key={product.id}
+                  className='flex flex-col sm:flex-row sm:items-center justify-between border-b border-orange-200 pb-2 last:border-0 last:pb-0'
+                >
+                  <p className='font-semibold text-lg text-orange-900 truncate sm:max-w-[200px]'>
+                    {product.title}
+                  </p>
+                  <div className='flex items-center gap-2 mt-1 sm:mt-0'>
+                    <Badge className='bg-orange-100 text-orange-800 hover:bg-orange-200 flex items-center gap-1'>
+                      {product.rating} <Star className='h-3 w-3 fill-orange-800' />
+                    </Badge>
+                    <span className='text-sm text-orange-700'>${product.price}</span>
+                    <span className='text-sm text-orange-700 ml-2'>Stock: {product.stock}</span>
+                  </div>
+                </div>
+              ))}
             </div>
           </CardContent>
         </Card>
