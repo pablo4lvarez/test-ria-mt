@@ -1,7 +1,7 @@
 import { ProductsService } from '@/lib/services/products';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Star } from 'lucide-react';
+import { Star, AlertCircle } from 'lucide-react';
 import { CategoryChart } from './CategoryChart';
 
 export async function SummaryCards() {
@@ -58,6 +58,35 @@ export async function SummaryCards() {
                     </Badge>
                     <span className='text-sm text-orange-700'>${product.price}</span>
                     <span className='text-sm text-orange-700 ml-2'>Stock: {product.stock}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {summary.unavailableProducts.length > 0 && (
+        <Card className='border-red-200 bg-red-50/50 md:col-span-3'>
+          <CardHeader>
+            <CardTitle className='text-red-950 flex items-center gap-2'>
+              <AlertCircle className='h-5 w-5 text-red-600' />
+              Unavailable Products
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className='space-y-4'>
+              {summary.unavailableProducts.map((product) => (
+                <div
+                  key={product.id}
+                  className='flex flex-col sm:flex-row sm:items-center justify-between border-b border-red-200 pb-2 last:border-0 last:pb-0'
+                >
+                  <p className='font-semibold text-lg text-red-900'>{product.title}</p>
+                  <div className='flex items-center gap-2 mt-1 sm:mt-0'>
+                    <Badge variant='destructive' className='flex items-center gap-1'>
+                      {product.availabilityStatus}
+                    </Badge>
+                    <span className='text-sm text-red-700'>${product.price}</span>
                   </div>
                 </div>
               ))}

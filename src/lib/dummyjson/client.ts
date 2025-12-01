@@ -9,6 +9,7 @@ export interface Product {
   category: string;
   thumbnail: string;
   images: string[];
+  availabilityStatus: string;
 }
 
 export interface DummyJsonResponse {

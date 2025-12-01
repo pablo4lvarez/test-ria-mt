@@ -18,6 +18,7 @@ export interface ProductsSummary {
   totalStock: number;
   categories: CategorySummary[];
   topRatedProducts: Product[];
+  unavailableProducts: Product[];
 }
 
 export class ProductsService {
@@ -56,6 +57,7 @@ export class ProductsService {
         totalStock: 0,
         categories: [],
         topRatedProducts: [],
+        unavailableProducts: [],
       };
     }
 
@@ -89,6 +91,7 @@ export class ProductsService {
       .sort((a, b) => a.name.localeCompare(b.name));
 
     const topRatedProducts = [...products].sort((a, b) => b.rating - a.rating).slice(0, 3);
+    const unavailableProducts = products.filter((p) => p.availabilityStatus === 'Out of Stock');
 
     return {
       totalProducts,
@@ -97,6 +100,7 @@ export class ProductsService {
       totalStock,
       categories,
       topRatedProducts,
+      unavailableProducts,
     };
   }
 }
